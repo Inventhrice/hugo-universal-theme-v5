@@ -1,7 +1,6 @@
 <header class="nav-holder make-sticky">
-    <div class="navbar navbar-light bg-white navbar-expand-lg py-0 yamm {{ if .Site.Params.dropdown_mouse_over }}mouseover{{ end }}" role="navigation" id="navbar">
-      <div class="container py-3 py-lg-0 px-lg-0">
-            
+    <div class="navbar navbar-light bg-white navbar-expand-lg py-0" role="navigation" id="navbar">
+      <div class="container py-3 py-lg-0 px-lg-0">      
             <a class="navbar-brand" href="{{ "/" | relLangURL }}">
                 {{ if default false .Site.Params.disabled_logo }}
                   <h4>{{ .Site.Params.logo_text }}</h4>
@@ -12,9 +11,12 @@
                 <span class="sr-only">{{ .Title }} - {{ i18n "navHome" }}</span>
             </a>
             
-            <button type="button" class="navbar-toggler text-primary border-primary" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler text-primary border-primary" type="button"
+              data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse"
+                aria-expanded="false" aria-label="Toggle navigation">
+              
               <span class="sr-only">{{ i18n "navToggle" }}</span>
-                <i class="fas fa-align-justify"></i>
+              <i class="fas fa-align-justify"></i>
             </button>
             
             
@@ -47,93 +49,97 @@
                   {{ if .HasChildren }}
                     <!-- Check if the first child marks a menu section identifier -->
                     {{ $hasSections := (hasPrefix (index .Children 0).Identifier "section.") }}
-                    <li class="nav-item dropdown {{ $active }}">
-                        <a href="#" class="nav-link dropdown-toggle active" id="hpDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
-                        {{ if $hasSections }}
-                        <ul class="dropdown-menu" aria-labelledby="hpDropdown">
-                            <li>
-                              <div class="row">
-                                  {{ if ne .URL "" }}
-                                  <div class="col-lg-6">
-                                      <img src="{{ .URL }}" class="img-responsive hidden-xs"/>
-                                  </div>
-                                  {{ end }}
-                                  <div class="col-lg-3 col-md-6">
+                    
+                    {{ if $hasSections }}
+                    <li class="nav-item dropdown menu-large">
+                      <a href="#" class="nav-link dropdown-toggle {{ $active }}" id="hpDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
+                      <ul class="dropdown-menu megamenu p-4" aria-labelledby="hpDropdown">
+                        <li>
+                          <div class="row">
+                              {{ if ne .URL "" }}
+                                <div class="col-lg-6">
+                                    <img src="{{ .URL }}" class="img-fluid d-none d-lg-block"/>
+                                </div>
+                              {{ end }}
+                              <div class="col-lg-3 col-md-6">
+                                {{ range .Children.ByWeight }}
+                                  {{ $column := printf "%s" .Post }}
+                                  {{ if eq $column "1" }}
+                                  <h5 class="text-dark text-uppercase pb-2 border-bottom">{{ .Name }}</h5>
+                                  {{ if .HasChildren }}
+                                  <ul class="list-unstyled mb-3">
                                   {{ range .Children.ByWeight }}
-                                      {{ $column := printf "%s" .Post }}
-                                      {{ if eq $column "1" }}
-                                      <h5 class="dropdown-item text-uppercase border-bottom">{{ .Name }}</h5>
-                                      {{ if .HasChildren }}
-                                      <ul class="dropdown-menu dropdown-submenu m-0">
-                                      {{ range .Children.ByWeight }}
-                                      <li><a class="dropdown-item text-uppercase border-bottom" href="{{ .URL }}">{{ .Name }}</a></li>
-                                      {{- end }}
-                                      </ul>
-                                      {{ end }}
-                                      {{ end }}
+                                  <li class="nav-item"><a class="nav-link-sub py-2 text-uppercase" href="{{ .URL }}">{{ .Name }}</a></li>
+                                  {{- end }}
+                                  </ul>
                                   {{ end }}
-                                  </div>
-                                  <div class="col-sm-3">
-                                  {{ range .Children.ByWeight }}
-                                      {{ $column := printf "%s" .Post }}
-                                      {{ if eq $column "2" }}
-                                      <h5 class="dropdown-item text-uppercase border-bottom">{{ .Name }}</code></h5>
-                                      {{ if .HasChildren }}
-                                      <ul>
-                                      {{ range .Children.ByWeight }}
-                                      <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-                                      {{ end }}
-                                      </ul>
-                                      {{ end }}
-                                      {{ end }}
                                   {{ end }}
-                                  </div>
-                                  {{ if eq .URL "" }}
-                                  <div class="col-sm-3">
-                                  {{ range .Children }}
-                                      {{ $column := printf "%s" .Post }}
-                                      {{ if eq $column "3" }}
-                                      <h5 class="dropdown-item text-uppercase border-bottom">{{ .Name }}</code></h5>
-                                      {{ if .HasChildren }}
-                                      <ul>
-                                      {{ range .Children.ByWeight }}
-                                      <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-                                      {{ end }}
-                                      </ul>
-                                      {{ end }}
-                                      {{ end }}
-                                  {{ end }}
-                                  </div>
-                                  <div class="col-sm-3">
-                                  {{ range .Children }}
-                                      {{ $column := printf "%s" .Post }}
-                                      {{ if eq $column "4" }}
-                                      <h5 class="dropdown-item text-uppercase border-bottom">{{ .Name }}</code></h5>
-                                      {{ if .HasChildren }}
-                                      <ul>
-                                      {{ range .Children.ByWeight }}
-                                      <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-                                      {{ end }}
-                                      </ul>
-                                      {{ end }}
-                                      {{ end }}
-                                  {{ end }}
-                                  </div>
-                                  {{ end }}
+                                {{ end }}
                               </div>
-                            </li>
-                        </ul>
-                        {{ else }}
-                        <ul class="dropdown-menu">
-                            {{ range .Children.ByWeight }}
-                            <li class="nav-item"><a class="nav-link-sub py-2 text-uppercase" href="{{ .URL }}">{{ .Name }}</a></li>
-                            {{ end }}
-                        </ul>
-                        {{ end }}
+                              <div class="col-sm-3">
+                                {{ range .Children.ByWeight }}
+                                  {{ $column := printf "%s" .Post }}
+                                  {{ if eq $column "2" }}
+                                  <h5 class="text-dark text-uppercase pb-2 border-bottom">{{ .Name }}</code></h5>
+                                  {{ if .HasChildren }}
+                                  <ul class="list-unstyled mb-3">
+                                  {{ range .Children.ByWeight }}
+                                  <li class="nav-item"><a class="nav-link-sub py-2 text-uppercase" href="{{ .URL }}">{{ .Name }}</a></li>
+                                  {{ end }}
+                                  </ul>
+                                  {{ end }}
+                                  {{ end }}
+                                {{ end }}
+                              </div>
+                              
+                              {{ if eq .URL "" }}
+                                <div class="col-sm-3">
+                                  {{ range .Children }}
+                                    {{ $column := printf "%s" .Post }}
+                                    {{ if eq $column "3" }}
+                                    <h5 class="dropdown-item text-uppercase border-bottom">{{ .Name }}</code></h5>
+                                    {{ if .HasChildren }}
+                                    <ul>
+                                    {{ range .Children.ByWeight }}
+                                    <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                                    {{ end }}
+                                    </ul>
+                                    {{ end }}
+                                    {{ end }}
+                                  {{ end }}
+                                </div>
+                                <div class="col-sm-3">
+                                  {{ range .Children }}
+                                    {{ $column := printf "%s" .Post }}
+                                    {{ if eq $column "4" }}
+                                    <h5 class="dropdown-item text-uppercase border-bottom">{{ .Name }}</code></h5>
+                                    {{ if .HasChildren }}
+                                    <ul>
+                                    {{ range .Children.ByWeight }}
+                                    <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+                                    {{ end }}
+                                    </ul>
+                                    {{ end }}
+                                    {{ end }}
+                                {{ end }}
+                              </div>
+                              {{ end }}
+                          </div>
+                        </li>
+                      </ul>
+                    {{ else }}
+                    <li class="nav-item dropdown">
+                      <a href="#" class="nav-link dropdown-toggle {{ $active }}" id="hpDropdown" data-bs-toggle="dropdown" role="button" aria-expanded="false">{{ .Name }} <span class="caret"></span></a>
+                      <ul class="dropdown-menu">
+                          {{ range .Children.ByWeight }}
+                          <li><a class="dropdown-item text-uppercase border-bottom" href="{{ .URL }}">{{ .Name }}</a></li>
+                          {{ end }}
+                      </ul>
+                    {{ end }}
                     </li>
                   {{ else }}
                   <li class="nav-item dropdown {{ $active }}">
-                    <a class="nav-link text-uppercase" href="{{ .URL }}">{{ .Name }}</a>
+                    <a class="nav-link text-uppercase border-bottom" href="{{ .URL }}">{{ .Name }}</a>
                   </li>
                   {{ end }}
                   {{ end }}
