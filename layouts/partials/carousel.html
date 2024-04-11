@@ -10,7 +10,7 @@
                     {{ range sort .Site.Data.carousel "weight" }}
                     <div class="swiper-slide h-auto mb-5">
                         {{ if .href }}
-                        <a href="{{ .href }}" target="_blank" title="{{ .title | safeHTML }}">
+                        <div><a class="text-white" href="{{ .href }}" target="_blank" title="{{ .title | safeHTML }}"></div>
                         {{ end }}
                             <div class="row gy-5 h-100 align-items-center">
                                 <div class="col-lg-5 text-lg-end">
