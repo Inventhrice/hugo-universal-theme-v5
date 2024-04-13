@@ -1,4 +1,4 @@
-baseurl = "https://github.com/Inventhrice/hugo-universal-theme-v5" # Configure URL. if using gh-pages https://github.com/<username>/hugo-universal-theme URL: https://<username>.github.io/hugo-universal-theme/
+baseurl = "" # Configure URL. if using gh-pages https://github.com/<username>/hugo-universal-theme URL: https://<username>.github.io/hugo-universal-theme/
 title = "Universal"
 theme = "hugo-universal-theme-v5"
 themesDir = "../.."
