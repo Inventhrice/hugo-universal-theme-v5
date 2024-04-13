@@ -1,12 +1,18 @@
 # Universal Theme for Hugo
 
-## Important!
-
-This is a forked repo from the original port of Bootstrapious' Universal theme by devcows. I loved using this template, enough so that I wanted to update the bootstrap version to v5, as it was previously at 3.3.7. Most of the functionality should remain unchanged, and *should* look mostly identical. If there are any discrepencies, feel free to either make a PR or put an issue up!
-
-The rest of the README is from the forked repo, so enjoy!
+[![Code Climate](https://codeclimate.com/github/devcows/hugo-universal-theme/badges/gpa.svg)](https://codeclimate.com/github/devcows/hugo-universal-theme)
 
 Universal is a clean and stylish website template built with [Bootstrap](https://getbootstrap.com/docs/3.4/getting-started/). It stands out with its clean design and elegant typography.
+
+Demo site: [https://devcows.github.io/hugo-universal-theme](https://devcows.github.io/hugo-universal-theme/)
+
+Sponsor this project:
+- [https://paypal.me/ryanfox1985](https://paypal.me/ryanfox1985)
+- [https://www.patreon.com/ryanfox1985](https://www.patreon.com/ryanfox1985)
+- BTC wallet
+```
+1My6zRZA4YKdX78aiZKZhWUWfFmCSDafZ6
+```
 
 This Hugo theme was ported from [Bootstrapious](http://bootstrapious.com/p/universal-business-e-commerce-template) for training and fun. It has a very nice and customizable landing page, a comments system by Disqus, site search by Google, contact forms by Formspree, Google Analytics, and optional widgets for the sidebar.
 
@@ -69,7 +75,7 @@ Go to the directory where you have your Hugo site and run:
 ```
 $ mkdir themes
 $ cd themes
-$ git clone https://github.com/Inventhrice/hugo-universal-theme-v5
+$ git clone https://github.com/devcows/hugo-universal-theme
 ```
 
 For more information read the official [setup guide](https://gohugo.io/installation/) of Hugo.
