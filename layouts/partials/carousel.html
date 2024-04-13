@@ -1,35 +1,33 @@
 {{ if default true .Site.Params.CarouselHomepage.enable }}
 {{ if isset .Site.Data "carousel" }}
 {{ if gt (len .Site.Data.carousel) 0 }}
-<section>
-    <div class="home-carousel">
+<section class="text-white bg-cover bg-center primary-overlay overlay-dense" style="background: url('img/photogrid.jpg') repeat">
+    <div class="overlay-content py-5">
         <div class="dark-mask"></div>
-        <div class="container">
-            <div class="homepage owl-carousel"
-                data-autoplay="{{ default true .Site.Params.CarouselHomepage.auto_play }}"
-                data-slide-speed="{{ default 2000 .Site.Params.CarouselHomepage.slide_speed }}"
-                data-pagination-speed="{{ default 1000 .Site.Params.CarouselHomepage.pagination_speed }}">
-                {{ range sort .Site.Data.carousel "weight" }}
-                <div class="item">
-                    {{ if .href }}
-                    <a href="{{ .href }}" target="_blank" title="{{ .title | safeHTML }}">
-                    {{ end }}
-                        <div class="row">
-                            <div class="col-sm-5 right">
-                                <h1>{{ .title | safeHTML }}</h1>
-                                {{ .description | safeHTML }}
+        <div class="container py-4">
+            <div class="swiper-container homepage-slider">
+                <div class="swiper-wrapper">
+                    {{ range sort .Site.Data.carousel "weight" }}
+                    <div class="swiper-slide h-auto mb-5">
+                        {{ if .href }}
+                        <div><a class="text-white" href="{{ .href }}" target="_blank" title="{{ .title | safeHTML }}"></div>
+                        {{ end }}
+                            <div class="row gy-5 h-100 align-items-center">
+                                <div class="col-lg-5 text-lg-end">
+                                    <h1 class="text-uppercase">{{ .title | safeHTML }}</h1>
+                                    {{ .description | safeHTML }}
+                                </div>
+                                <div class="col-lg-7">
+                                    <img class="img-responsive" src="{{ .image }}" alt="">
+                                </div>
                             </div>
-                            <div class="col-sm-7">
-                                <img class="img-responsive" src="{{ .image }}" alt="">
-                            </div>
-                        </div>
-                    {{ if .href }}
-                    </a>
+                        {{ if .href }}
+                        </a>
+                        {{ end }}
+                    </div>
                     {{ end }}
                 </div>
-                {{ end }}
             </div>
-            <!-- /.project owl-slider -->
         </div>
     </div>
 </section>
