@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const states = document.getElementById("state");
 
     let countriesRequest = new XMLHttpRequest();
-    countriesRequest.open("GET", "js/countries.json");
+    countriesRequest.open("GET", "/js/countries.json");
     countriesRequest.onload = function () {
         let requestData = JSON.parse(countriesRequest.responseText);
         renderCountries(requestData);
