@@ -17,16 +17,17 @@
         {{ partial "breadcrumbs.html" . }}
 
         <div id="content">
-            <div class="container">
+          <section class="py-5">
+            <div class="container py-4">
 
-                <div class="row">
+                <div class="row gy-5">
 
                     <!-- *** LEFT COLUMN *** -->
 
-                    <div class="col-md-9" id="blog-post">
+                    <div class="col-lg-9" id="blog-post">
 
                         {{ if or .Params.author .Params.date }}
-                          <p class="text-muted text-uppercase mb-small text-right">
+                          <p class="text-muted text-uppercase mb-4 text-end text-sm">
                             {{ if isset .Params "authors" }}
 			      {{ i18n "authorBy" }} {{ range $index, $author := .Params.authors }}{{ if $index }}, {{ end }}<a href="{{ (printf "%s/%s" ("authors" | relLangURL) ($author | urlize)) }}">{{ $author }}</a>{{ end }}
                             {{ end }}
@@ -76,6 +77,7 @@
 
             </div>
             <!-- /.container -->
+          </section>
         </div>
         <!-- /#content -->
 
