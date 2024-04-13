@@ -2,8 +2,8 @@
 {{ if .Site.Params.features.enable }}
 {{ if isset .Site.Data "features" }}
 {{ if gt (len .Site.Data.features) 0 }}
-<section class="py-5">
-    <div class="container py-4">
+<section class="bar background-white">
+    <div class="container">
         {{ $elements := default 3 .Site.Params.features.cols }}
         {{ $features := sort .Site.Data.features "weight" }}
 
@@ -21,20 +21,20 @@
                 {{ if lt $feature_index (len $features) }}
                     {{ $element := index $features $feature_index }}
 
-                    <div class="col-md-{{ div 12 $elements }} col-{{ $j }} col-{{ if eq (mod $j 2) 0 }}odd{{ else }}even{{ end }} block-icon-hover text-center">
-                        
-                        {{ with $element.url }}
-                        <a href="{{ $element.url }}">
-                        {{ end }}
-                            <div class="icon icon-outlined icon-outlined-primary icon-thin mx-auto mb-3">
-                                <i class="{{ $element.icon }}"></i>
-                            </div>
-                        {{ with $element.url }}
-                        </a>
-                        {{ end }}
-                        <h4 class="text-uppercase mb-3">{{ $element.name | markdownify }}</h4>
-                        <p class="text-gray-600 text-sm">{{ $element.description | markdownify }}</p>
-                    
+                    <div class="col-md-{{ div 12 $elements }} col-{{ $j }} col-{{ if eq (mod $j 2) 0 }}odd{{ else }}even{{ end }}">
+                        <div class="box-simple">
+                            {{ with $element.url }}
+                            <a href="{{ $element.url }}">
+                            {{ end }}
+                                <div class="icon">
+                                    <i class="{{ $element.icon }}"></i>
+                                </div>
+                            {{ with $element.url }}
+                            </a>
+                            {{ end }}
+                            <h3>{{ $element.name | markdownify }}</h3>
+                            <p>{{ $element.description | markdownify }}</p>
+                        </div>
                     </div>
                 {{ end }}
             {{ end }}

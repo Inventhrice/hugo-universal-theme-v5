@@ -15,42 +15,43 @@
         {{ partial "nav.html" . }}
 
         {{ partial "breadcrumbs.html" . }}
-        <section class="py-5">
-            <div class="container py-4">
-                <div class="row gy-5">
+
+        <div id="content">
+            <div class="container">
+                <div class="row">
                     <!-- *** LEFT COLUMN *** -->
 
-                    <div class="col-lg-9" id="blog-listing-medium">
+                    <div class="col-md-9" id="blog-listing-medium">
 
                         {{ $paginator := .Paginate (where .Data.Pages "Type" "in" .Site.Params.mainSections) }}
                         {{ range $paginator.Pages }}
-                        
+                        <section class="post">
                             <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="image">
-                                        <a class="d-block mb-3" href="{{ .Permalink }}">
-                                            {{ if .Params.banner }}
-                                            <img src="{{ .Params.banner | relURL }}" class="img-fluid" alt="">
-                                            {{ else }}
-                                            <img src="{{ "img/placeholder.png" | relURL }}" class="img-fluid" alt="">
-                                            {{ end }}
-                                        </a>
-                                    </div>
+                                <div class="col-md-4">
+                                  <div class="image">
+                                      <a href="{{ .Permalink }}">
+                                          {{ if .Params.banner }}
+                                          <img src="{{ .Params.banner | relURL }}" class="img-responsive" alt="">
+                                          {{ else }}
+                                          <img src="{{ "img/placeholder.png" | relURL }}" class="img-responsive" alt="">
+                                          {{ end }}
+                                      </a>
+                                  </div>
                                 </div>
-                                <div class="col-lg-6">
-                                    <h2 class="text-uppercase mb-3"><a class="text-dark" href="{{ .Permalink }}">{{ .Title }}</a></h2>
-                                    <div class="row gy-2 mb-2">
-                                        <p class="text-sm text-uppercase mb-0 fw-light text-muted">
-                                        {{ if isset .Params "authors" }}
-                    {{ i18n "authorBy" }} {{ range $index, $author := .Params.authors }}{{ if $index }}, {{ end }}<a class="fw-normal" href="{{ (printf "%s/%s" ("authors" | relLangURL) ($author | urlize)) }}">{{ $author }}</a>{{ end }}
-                                        {{ end }}
-                                        {{ if isset .Params "categories" }}
-                                        {{ if gt (len .Params.categories) 0 }}
-                                        in 
-                                        {{ range $index, $category := .Params.categories }}{{ if $index }}, {{ end }}
-                                            <a class="fw-normal" href="{{ "categories/" | relLangURL }}{{ . | urlize | lower }}">{{ $category }}</a>{{ end }}
-                                        {{ end }}
-                                        {{ end }}
+                                <div class="col-md-8">
+                                    <h2><a href="{{ .Permalink }}">{{ .Title }}</a></h2>
+                                    <div class="clearfix">
+                                        <p class="author-category">
+                                          {{ if isset .Params "authors" }}
+					  {{ i18n "authorBy" }} {{ range $index, $author := .Params.authors }}{{ if $index }}, {{ end }}<a href="{{ (printf "%s/%s" ("authors" | relLangURL) ($author | urlize)) }}">{{ $author }}</a>{{ end }}
+                                          {{ end }}
+                                          {{ if isset .Params "categories" }}
+                                          {{ if gt (len .Params.categories) 0 }}
+                                          in 
+                                          {{ range $index, $category := .Params.categories }}{{ if $index }}, {{ end }}
+                                              <a href="{{ "categories/" | relLangURL }}{{ . | urlize | lower }}">{{ $category }}</a>{{ end }}
+                                          {{ end }}
+                                          {{ end }}
 
                                         </p>
                                         {{ if isset .Params "date" }}
@@ -72,21 +73,29 @@
                                     {{ end }}
                                 </div>
                             </div>
-                        
+                        </section>
                         {{ end }}
 
-                        <div class="py-4 border-top">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex align-items-center justify-content-between"><a class="btn btn-outline-primary" href="blog.html"><i class="fas fa-long-arrow-alt-left me-2"></i>Older</a><a class="btn btn-outline-primary disabled" href="#">Newer<i class="fas fa-long-arrow-alt-right ms-2"></i></a></div>
-                            </div>
-                        </div>
+                        <ul class="pager">
+                            {{ if .Paginator.HasPrev }}
+                            <li class="previous"><a href="{{ .Paginator.Prev.URL | relURL }}">&larr; {{ i18n "newer" }}</a></li>
+                            {{ else }}
+                            <li class="previous disabled"><a href="#">&larr; {{ i18n "newer" }}</a></li>
+                            {{ end }}
+
+                            {{ if .Paginator.HasNext }}
+                            <li class="next"><a href="{{ .Paginator.Next.URL | relURL }}">{{ i18n "older" }} &rarr;</a></li>
+                            {{ else }}
+                            <li class="next disabled"><a href="#">{{ i18n "older" }} &rarr;</a></li>
+                            {{ end }}
+                        </ul>
                     </div>
                     <!-- /.col-md-9 -->
 
                     <!-- *** LEFT COLUMN END *** -->
 
                     <!-- *** RIGHT COLUMN ***
-    _________________________________________________________ -->
+       _________________________________________________________ -->
 
                     <div class="col-md-3">
 
@@ -105,7 +114,7 @@
                 <!-- /.row -->
             </div>
             <!-- /.container -->
-        </section>
+        </div>
         <!-- /#content -->
 
         {{ partial "footer.html" . }}

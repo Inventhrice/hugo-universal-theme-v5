@@ -1,55 +1,63 @@
-<footer>
-    <div class="bg-gray-700 text-white py-5">
-        <div class="container py-4">
-            <div class="row gy-4">
-                {{ if isset .Site.Params "about_us" }}
-                <div class="col-lg-3">
-                    <h4 class="mb-3 text-uppercase">{{ i18n "aboutUs" }}</h4>
-                    <p class="text-sm text-gray-500">{{ .Site.Params.about_us | safeHTML }}</p>
-                    <hr>
+<footer id="footer">
+    <div class="container">
+
+        {{ if isset .Site.Params "about_us" }}
+        <div class="col-md-4 col-sm-6">
+            <h4>{{ i18n "aboutUs" }}</h4>
+
+            {{ .Site.Params.about_us | safeHTML }}
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        <!-- /.col-md-4 -->
+        {{ end }}
+
+        <div class="col-md-4 col-sm-6">
+
+            {{ if isset .Site.Params "recent_posts" }}{{ if (default true .Site.Params.footer.recent_posts.enable) }}
+            <h4>{{ i18n "recentPosts" }}</h4>
+
+            <div class="blog-entries">
+                {{ range first 3 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
+                <div class="item same-height-row clearfix">
+                    <div class="image same-height-always">
+                        <a href="{{ .Permalink }}">
+                          {{ if isset .Params "banner" }}
+                            <img src="{{ .Params.banner | relURL }}" class="img-responsive" alt="{{ .Title }}">
+                          {{ else }}
+                            <img src="{{ "img/placeholder.png" | relURL }}" class="img-responsive" alt="{{ .Title }}">
+                          {{ end }}
+                        </a>
+                    </div>
+                    <div class="name same-height-always">
+                        <h5><a href="{{ .Permalink }}">{{ .Title }}</a></h5>
+                    </div>
                 </div>
-                <!-- /.col-md-4 -->
-                {{ end }}
-
-                <div class="col-lg-3">
-
-                    {{ if isset .Site.Params "recent_posts" }}{{ if (default true .Site.Params.footer.recent_posts.enable) }}
-                    <h4 class="mb-3 text-uppercase">{{ i18n "recentPosts" }}</h4>
-
-                    <ul class="list-unstyled">
-                        {{ range first 3 (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
-                        <li class="d-flex align-items-center mb-2">
-                            <div class="image same-height-always">
-                                <a href="{{ .Permalink }}">
-                                {{ if isset .Params "banner" }}
-                                    <img src="{{ .Params.banner | relURL }}" class="img-fluid" alt="{{ .Title }}" width="40">
-                                {{ else }}
-                                    <img src="{{ "img/placeholder.png" | relURL }}" class="img-fluid" alt="{{ .Title }}" width="40">
-                                {{ end }}
-                                </a>
-                            </div>
-                            <div class="ms-2">
-                                <h5 class="text-uppercase mb-0"><a class="text-reset" href="{{ .Permalink }}">{{ .Title }}</a></h5>
-                            </div>
-                        </li>
-                        {{ end }}
-                    </ul>
-                    {{ end }}{{ end }}
-
-                </div>
-                <!-- /.col-md-4 -->
-
-                {{ if isset .Site.Params "address" }}
-                <div class="col-lg-3">
-                    <h4 class="mb-3 text-uppercase">{{ i18n "contactTitle" }}</h4>
-                    {{ .Site.Params.address | safeHTML }}
-                    <a href="{{ default "/contact" .Site.Params.contact_url }}" class="btn btn-small btn-template-main">{{ i18n "contactGoTo" }}</a>
-                    <hr>
-                </div>
-                <!-- /.col-md-4 -->
                 {{ end }}
             </div>
+
+            <hr class="hidden-md hidden-lg">
+            {{ end }}{{ end }}
+
         </div>
+        <!-- /.col-md-4 -->
+
+        {{ if isset .Site.Params "address" }}
+        <div class="col-md-4 col-sm-6">
+
+          <h4>{{ i18n "contactTitle" }}</h4>
+
+            {{ .Site.Params.address | safeHTML }}
+
+	    <a href="{{ default "/contact" .Site.Params.contact_url }}" class="btn btn-small btn-template-main">{{ i18n "contactGoTo" }}</a>
+
+            <hr class="hidden-md hidden-lg hidden-sm">
+
+        </div>
+        <!-- /.col-md-4 -->
+        {{ end }}
+
     </div>
     <!-- /.container -->
 </footer>
@@ -61,22 +69,18 @@
 <!-- *** COPYRIGHT ***
 _________________________________________________________ -->
 
-<div class="bg-dark py-5">
+<div id="copyright">
     <div class="container">
-        <div class="row align-items-cenrer gy-3 text-center">
-            <div class="col-md-6 text-md-start">
-                {{ if isset .Site.Params "copyright" }}
-                <p class="mb-0 text-sm text-gray-500">{{ .Site.Params.copyright | safeHTML }}</p>
-                {{ end }}
-            </div>
-            <div class="col-md-6 text text-md-end">
-                <p class="mb-0 text-sm text-gray-500">
-                {{ i18n "templateBy" | markdownify }} <a href="https://bootstrapious.com" target="_blank">Bootstrapious</a> & <a href="https://juliemaluje.com/" target="_blank">Julie</a>
-                <!-- Please do not remove the backlink to us unless you purchase the Attribution-free License at https://bootstrapious.com/attribution-free-license. Thank you.-->
+        <div class="col-md-12">
+            {{ if isset .Site.Params "copyright" }}
+            <p class="pull-left">{{ .Site.Params.copyright | safeHTML }}</p>
+            {{ end }}
+            <p class="pull-right">
+              {{ i18n "templateBy" | markdownify }} <a href="https://bootstrapious.com/p/universal-business-e-commerce-template">Bootstrapious</a>.
+              <!-- Not removing this link is part of the licence conditions of the template. Thanks for understanding :) -->
 
-                {{ i18n "portedBy" | markdownify }} <a href="https://github.com/Inventhrice/hugo-universal-theme-v5">Inventhrice</a>.
-                </p>
-            </div>
+              {{ i18n "portedBy" | markdownify }} <a href="https://github.com/devcows/hugo-universal-theme">DevCows</a>.
+            </p>
         </div>
     </div>
 </div>
